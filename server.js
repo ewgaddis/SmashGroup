@@ -1,8 +1,9 @@
 // Get required modules
-var express = require('express');
-var https = require('https');
-var http = require('http');
-var fs = require('fs');
+var express    = require('express');
+var https      = require('https');
+var http       = require('http');
+var fs         = require('fs');
+var bodyParser = require('body-parser');
 
 // Create app and apps
 var app = express();
@@ -13,6 +14,8 @@ var options = {
     key: fs.readFileSync('ssl/server.key'),
     cert: fs.readFileSync('ssl/server.crt')
 };
+
+apps.use(bodyParser());
 
 // Initialize app and apps routes
 require('./routes')(app, apps);
