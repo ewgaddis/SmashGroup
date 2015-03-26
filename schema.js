@@ -9,12 +9,13 @@ var userSchema = new Schema({
   email: {type: String, required: true},
   phoneNumber: String,
   groups: [
-  	{type: Schema.Types.ObjectID, ref: 'Group'}
+  	Schema.Types.ObjectID
   ],
   intrests: [
-  	{type: Schema.Types.ObjectID, ref: 'Categories'}
-  ],
-}, {collection:'User'});
+  	Schema.Types.ObjectID
+  ]
+}, {collection:'users'});
+
 userSchema.methods.fullName = function() {
 	return this.fristName + ' ' + this.lastName;
 } 
@@ -25,28 +26,33 @@ var groupSchema = new Schema({
   schedule: String,
   zipcode: String,
   admins: [
-  	{type: Schema.Types.ObjectID, ref: 'User'}
+  	Schema.Types.ObjectID
   ],
   members: [
-  	{type: Schema.Types.ObjectID, ref: 'User'}
+  	Schema.Types.ObjectID
   ],
   membershipRequests: [
-  	{type: Schema.Types.ObjectID, ref: 'User'}
+  	Schema.Types.ObjectID
   ],
   catatgory: [
-  	{type: Schema.Types.ObjectID, ref: 'Categories'}
+  	Schema.Types.ObjectID
   ],
   comments: [
-  	{type: Schema.Types.ObjectID, ref: 'Comment'}
-  ],
-}, {collection:'Group'});
+  	Schema.Types.ObjectID
+  ]
+}, {collection:'groups'});
 
 var commentSchema = new Schema({
-  user: {type: Schema.Types.ObjectID, ref: 'User'},
   commentText: String,
+  user: String,
   timestamp: { type : Date, default: Date.now }
-}, {collection:'Comment'});
+}, {collection:'comments'});
 
-var catagorySchema = new Schema({
-  name: String,
-}, {collection:'Categories'});
+var categorySchema = new Schema({
+  name: String
+}, {collection:'categories'});
+
+mongoose.model('User', userSchema);
+mongoose.model('Group', groupSchema);
+mongoose.model('Comment', commentSchema);
+mongoose.model('Category', categorySchema);
