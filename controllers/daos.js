@@ -1,4 +1,4 @@
-var util = require('./util');
+var util = require('../util');
 
 // Add an object/document to a collection
 function addObject(collection, object, callback) {
@@ -19,7 +19,7 @@ function addUser(database, user, callback) {
 	});
 }
 
-function findUser(database, username, callback) {
+function findUser(username, callback) {
 	// Find user in database.
 	
 	callback(null, {
