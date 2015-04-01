@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
-  fristName: {type: String, required: true},
+  firstName: {type: String, required: true},
   lastName: {type: String, required: true},
   username: {type: String, required: true},
   password: {type: String, required: true},
@@ -11,7 +11,7 @@ var userSchema = new Schema({
   groups: [
   	Schema.Types.ObjectID
   ],
-  intrests: [
+  interests: [
   	Schema.Types.ObjectID
   ]
 }, {collection:'users'});
@@ -34,7 +34,7 @@ var groupSchema = new Schema({
   membershipRequests: [
   	Schema.Types.ObjectID
   ],
-  catatgory: [
+  category: [
   	Schema.Types.ObjectID
   ],
   comments: [
