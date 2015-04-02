@@ -8,7 +8,7 @@ exports.get = function(req, res, next) {
 exports.post = function(req, res, next) {
 	console.log(req.body);
 			
-	daos.findUser(req.body.username, function(err, user) {
+	daos.findUser(req.body.username, function(user, err) {
 		if(!user) {
 			err = 'User not found.';
 		} else if(user.password === util.hashPW(req.body.password.toString())) {
