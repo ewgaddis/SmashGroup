@@ -4,9 +4,6 @@
  * Module dependencies.
  */
 
-var app = require('../app');
-var apps = require('../apps');
-
 var debug = require('debug')('SmashGroup:server');
 
 var https      = require('https');
@@ -14,7 +11,10 @@ var http       = require('http');
 var fs         = require('fs');
 var mongoose   = require('mongoose');
 
-var db = mongoose.connect('mongodb://localhost/SmashGroup');
+var conn = mongoose.connect('mongodb://localhost/SmashGroup');
+
+var app = require('../app');
+var apps = require('../apps');
 
 /**
  * Get port from environment and store in Express.
