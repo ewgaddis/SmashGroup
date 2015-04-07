@@ -21,7 +21,7 @@ exports.post = function(req, res, next) {
 				req.session.user = user.id;
 				req.session.username = user.username;
 
-				res.redirect('http://localhost/');
+				res.redirect('http://' + util.getHostName() + '/');
 			});
 		} else {
 			err = 'Authentication failed.';
