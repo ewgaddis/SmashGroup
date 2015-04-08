@@ -12,10 +12,10 @@ exports.get = function(req, res, next) {
 exports.post = function(req, res, next) {
 	console.log(req.body);
 			
-	daos.findUser(req.body.username, function(user, err) {
-		if(!user) {
+	daos.getUser(req.body.username, function(user, err) {
+		if(user.length == 0) {
 			err = 'User not found.';
-		} else if(user.password === util.hashPW(req.body.password.toString())) {
+		} else if(user[0].password === util.hashPW(req.body.password.toString())) {
 			// user logged in
 			req.session.regenerate(function() {
 				req.session.user = user.id;
@@ -23,7 +23,11 @@ exports.post = function(req, res, next) {
 
 				res.redirect('http://' + util.getHostName() + '/');
 			});
-		} else {
+		}
+        else {
+            console.log(user);
+            console.log(user.password);
+            console.log(util.hashPW(req.body.password.toString()));
 			err = 'Authentication failed.';
 		}
 				

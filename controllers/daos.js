@@ -2,7 +2,7 @@ var util = require('../util');
 var crypto = require('crypto');
 var mongoose = require('mongoose');
 
-var schema =require('../schema');
+var schema = require('../schema');
 
 var User = mongoose.model('User');
 
@@ -11,6 +11,7 @@ exports.getUser = function(userName, callback)
 {
 	User.find({username:userName}).exec(function(err,user)
 	{
+
 		if(!user)
 		{
 			user=null;
@@ -20,22 +21,23 @@ exports.getUser = function(userName, callback)
 	});
 }
 
-exports.addUser = function(fname, lname, uname, pw,em,phone, gps, inters)
+exports.addUser = function(fname, lname, uname, pw, em, phone, gps, inters)
 {
 	var newGuy = new User({
 		firstName: fname,
 		lastName: lname,
-		userName: uname,
+		username: uname,
 		password: pw,
 		email : em,
 		phoneNumber: phone,
 		groups: gps,
 		interests: inters
 	});
-
-	newGuy.save(function(err, newGuy) {
-  	if (err) return console.error(err);
-  		console.dir(newGuy);
+    
+    newGuy.save(function(err, inserted) {
+        if (err)
+            return console.error(err);
+  		console.dir(inserted);
 	});
 	//does this work
 	//User.Insert
