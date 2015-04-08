@@ -1,6 +1,6 @@
 var MongoClient = require('mongodb').MongoClient;
 
-var util = require('./util');
+var util = require('../util');
 var daos = require('./daos');
 
 exports.get = function(req, res) {

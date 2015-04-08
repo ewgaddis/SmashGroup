@@ -136,10 +136,4 @@ exports.getRequests=function(groupName, callback)
 	});
 }
 
-addMember(userId, groupId)
-
-
-
-
-
-
+//addMember(userId, groupId)
