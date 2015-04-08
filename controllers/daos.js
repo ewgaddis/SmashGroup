@@ -27,3 +27,11 @@ exports.addUser = function(user)
 
 //adduser para (nam)
 //findgroup
+/*getUser(userId)
+getGroup(groupId)
+getGroupsByCategory(category)
+getGroupsByTitle(title)
+addGroup(group)
+addRequest(senderId, groupId)
+getRequests(groupId)
+addMember(userId, groupId)*/
