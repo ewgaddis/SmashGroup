@@ -1,13 +1,32 @@
 (function(){
 
-  var app = angular.module('smashGroup', []);
+var app = angular.module('smashGroup', []);
 
-  app.controller('groupController', function(){
-    this.groupCategories = categories;
-	this.getClass = function(category){
-		return category.icon;
-	};
-  });
+app.controller('userController', [
+	'$scope',
+	'$http',
+	function($scope, $http) {
+		$scope.userMenu = "/userMenu.html";
+		
+		$http.get('/users/get').success(function(data, status, headers, config) {
+	    	$scope.user = data;
+    	}).error(function(data, status, headers, config) {
+	    	$scope.user = null;
+    	});
+	}
+]);
+
+app.controller('groupController', [
+	'$scope',
+    '$http',
+  	function($scope, $http) {
+    	this.groupCategories = categories;
+    	
+		this.getClass = function(category){
+			return category.icon;
+		};
+	}
+]);
   
   var categories = [
     {
