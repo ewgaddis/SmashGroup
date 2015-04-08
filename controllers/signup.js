@@ -4,7 +4,11 @@ var util = require('../util');
 var daos = require('./daos');
 
 exports.get = function(req, res) {
-	res.sendfile('signup.html', { maxAge: 60*60*1000, root: './html/' }, function(err) {});
+	if(req.session.user) {
+		res.redirect('http://' + util.getHostName() + '/');
+	}
+
+	res.render('signup');
 };
 
 exports.post = function(req, res) 

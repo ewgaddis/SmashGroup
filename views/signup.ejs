@@ -1,38 +1,117 @@
 <!doctype html>
-<html>
+<html lang="en" style="height:100%;">
 <head>
-	<title>Sign up for SmashGroup!</title>
+  <meta charset="UTF-8">
+  <title>Sign up for SmashGroup!</title>
+  <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+  <!-- Bootstrap 3.3.2 -->
+  <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
+  <!-- FontAwesome 4.3.0 -->
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+  <!-- Ionicons 2.0.0 -->
+  <link href="https://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />    
+  <!-- Theme style -->
+  <link href="dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+  <!-- AdminLTE Skins. Choose a skin from the css/skins 
+    folder instead of downloading all of them to reduce the load. -->
+  <link href="dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
 </head>
-<body>
-	<h1>Sign up for SmashGroup!</h1>
-	
-	<form method="POST" action="/signup">
-		<label>Name:</label>
-		<input type="text" name="firstname" placeholder="First">
-		<input type="text" name="lastname" placeholder="Last"><br>
-		
-		<label>Email Address:</label>
-		<input type="text" name="email"><br>
-		
-		<label>ZipCode:</label>
-		<input type="text" name="zipcode" placeholder="Ex: 84601"><br>
+<body class="skin-red sidebar-collapse" style="height:100%;">
+  <div class="wrapper" style="background-color:#ecf0f5;position:relative;padding-bottom:51px;">
+		<header class="main-header">
+			<!-- Logo -->
+			<a href="" class="logo"><b>Smash</b>Group</a>
+      <nav class="navbar navbar-static-top" role="navigation">
+        <div class="navbar-custom-menu">
+          <ul class="nav navbar-nav">
+            <li class="dropdown user user-menu">
+              <a href="/login" class="dropdown-toggle" data-toggle="dropdown">
+              	<span>Log In</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+		</header>
+		<div class="content-wrapper">
+			<!-- Main content -->
+      <div class="col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8 well" style="margin-top:2em;">
+        <form method="POST" action="/signup" class="form-horizontal">
+          <div class="form-group">
+            <h1 style="text-align:center;">Sign up for SmashGroup!</h1>
+            <div class="col-xs-12 col-sm-offset-2 col-sm-4">
+              <label class="control-label">Name:</label>
+              <input type="text" name="firstname" placeholder="First" class="form-control">
+              <input type="text" name="lastname" placeholder="Last" class="form-control">
+              
+              <label class="control-label">Email Address:</label>
+              <input type="text" name="email" placeholder="email@example.com" class="form-control">
+              
+              <label class="control-label">ZipCode:</label>
+              <input type="text" name="zipcode" placeholder="Ex: 84601" class="form-control">
+            </div>
+            <div class="col-xs-12 col-sm-4">
+              <label class="control-label">Desired Username:</label>
+              <input type="text" name="username" placeholder="Coolguy1" class="form-control">
 
-		<label>Desired Username:</label>
-		<input type="text" name="username" placeholder="Coolguy1"><br>
-
-		<label>Create a password:</label>
-		<input type="password" name="password" placeholder="*********"><br>
-
-		<p1>Interests</p1><br>
-		<input type="checkbox" name="gaming" value="gaming">Gaming<br>
-		<input type="checkbox" name="movies" value="movies">TV/Movies<br>
-		<input type="checkbox" name="outdoors" value="outdoors">Outdoor Adventures<br>
-		<input type="checkbox" name="books" value="books">Reading Adventures<br>
-		<input type="checkbox" name="art" value="art">The Arts<br>
-		<input type="checkbox" name="computers" value="computers">Computer Programming<br>
-		<input type="checkbox" name="other" value="other">Other (not listed)<br>
-		
-		<input type="submit" value="Sign Me Up!">
-	</form>
+              <label class="control-label">Create a password:</label>
+              <input type="password" name="password" placeholder="*********" class="form-control">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-xs-12 col-sm-offset-3 col-sm-3">
+              <label class="control-label">Interests:</label>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="gaming" value="gaming">Gaming
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="movies" value="movies">TV/Movies
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="outdoors" value="outdoors">Outdoor Adventures
+                </label>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-3">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="books" value="books">Reading Adventures
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="art" value="art">The Arts
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="computers" value="computers">Computer Programming
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="other" value="other">Other (not listed)
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="text-center">
+            <input type="submit" value="Sign Me Up!" class="btn btn-default">
+          </div>
+        </form>
+      </div>
+		</div>
+    <footer class="main-footer" style="position:absolute;width:100%;bottom:0;">
+      <div class="pull-right hidden-xs">
+        <b>Version</b> 1.0
+      </div>
+      <strong>SmashGroup Team</strong>
+    </footer>
+	</div>
 </body>
 </html>
