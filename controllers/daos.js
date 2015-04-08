@@ -2,14 +2,14 @@ var util = require('../util');
 var crypto = require('crypto');
 var mongoose = require('mongoose');
 
-require('../schema');
+var schema =require('../schema');
 
 var User = mongoose.model('User');
 
 
-exports.findUser = function(userName, callback)
+exports.getUser = function(userName, callback)
 {
-	User.findOne({username:userName}).exec(function(err,user)
+	User.find({username:userName}).exec(function(err,user)
 	{
 		if(!user)
 		{
@@ -20,18 +20,126 @@ exports.findUser = function(userName, callback)
 	});
 }
 
-exports.addUser = function(user)
+exports.addUser = function(fname, lname, uname, pw,em,phone, gps, inters)
 {
+	var newGuy = new User({
+		firstName: fname,
+		lastName: lname,
+		userName: uname,
+		password: pw,
+		email : em,
+		phoneNumber: phone,
+		groups: gps,
+		interests: inters
+	});
+
+	newGuy.save(function(err, newGuy) {
+  	if (err) return console.error(err);
+  		console.dir(newGuy);
+	});
 	//does this work
+	//User.Insert
 }
 
-//adduser para (nam)
-//findgroup
-/*getUser(userId)
-getGroup(groupId)
-getGroupsByCategory(category)
-getGroupsByTitle(title)
-addGroup(group)
-addRequest(senderId, groupId)
-getRequests(groupId)
-addMember(userId, groupId)*/
+var Group = mongoose.model('Group');
+exports.getGroup = function(groupName, callback)
+{
+	Group.find({name:groupName}).exec(function(err,group)
+	{
+		if(!group)
+		{
+			group=null;
+		}
+		
+		callback(group,err);
+	});
+}
+//getGroupsByCategory(category)
+exports.getGroupsByCategory = function(Category, callback)
+{
+	Group.find({category:Category}).exec(function(err,groups)
+	{
+		if(!groups)
+		{
+			groups=null;
+		}
+		
+		callback(groups,err);
+	});
+}
+//getGroupsByTitle(title) what is this
+//getGroupBy zip
+exports.getGroupsByZip = function(zip, callback)
+{
+	Group.find({zipcode:zip}).exec(function(err,groups)
+	{
+		if(!groups)
+		{
+			groups=null;
+		}
+		
+		callback(groups,err);
+	});
+}
+//addGroup(group)
+exports.addGroup = function(gname, descrip, sched, zip,adms,membs, membRecs, categor, comms)
+{
+	var newGroup = new Group({
+		name: gname,
+		description: descrip,
+		schedule: sched,
+		zipcode: zip,
+		admins : adms,
+		members: membs,
+		membershipRequests: membRecs,
+		category: categor,
+		comments: comms
+
+	});
+
+	newGroup.save(function(err, newGroup) {
+  	if (err) return console.error(err);
+  		console.dir(newGroup);
+	});
+	//does this work
+	//User.Insert
+}
+//addRequest(senderId, groupId)
+exports.addRequest = function(newUserName, groupToadd)
+{
+	Group.findOne({name:groupToadd}).exec(function(err,group)
+	{
+		if(!group)
+		{
+			console.log("error cant find group");
+		}
+		else
+		{
+			group.update({membershipRequests:newUserName});
+			// i have no clue on this
+		}
+		
+	});
+	
+}
+//getRequests(groupId)
+exports.getRequests=function(groupName, callback)
+{
+	Group.findOne({name:groupName}).exec(function(err,group)
+	{
+		if(!group)
+		{
+			group=null;
+		}
+		
+		callback(group,err);
+	});
+}
+
+addMember(userId, groupId)
+
+
+
+
+
+
