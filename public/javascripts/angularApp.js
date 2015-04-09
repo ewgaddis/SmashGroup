@@ -1,6 +1,6 @@
 (function(){
 
-var app = angular.module('smashGroup', []);
+var app = angular.module('smashGroup', ['ui.router']);
 
 app.controller('userController', [
 	'$scope',
@@ -20,37 +20,49 @@ app.controller('userController', [
 	}
 ]);
 
-app.controller('groupController', [
+app.controller('groupsController', [
 	'$scope',
-    '$http',
-  	function($scope, $http) {
-    	$scope.groupCategories = categories;
-    	
-		$scope.getClass = function(category){
-			return category.icon;
-		};
+	'$http',
+	function($scope, $http) {
+		//get groups to display
 	}
 ]);
-  
-  var categories = [
-    {
-      name: "Video Games",
-	  icon: "fa-gamepad",
-      groups: [{
-        name: "Super Smash Bros."
-      }, {
-        name: "Mega Man X"
-      }]
-    },
-	{
-      name: "Movies",
-	  icon: "fa-film",
-      groups: [{
-        name: "Inception"
-      }, {
-        name: "Star Wars"
-      }]
-    }
-  ];
+
+app.controller('groupController', [
+	'$scope',
+	'$http',
+	function($scope, $http) {
+		//get group to display
+	}
+]);
+
+app.controller('profileController', [
+	'$scope',
+	'$http',
+	function($scope, $http) {
+		//get profile info to display
+	}
+]);
+
+app.config([
+  '$stateProvider',
+  '$urlRouterProvider',
+  function($stateProvider, $urlRouterProvider) {
+    $stateProvider
+      .state('groups', {
+        url: '/groups',
+        templateUrl: '/templates/groups.ejs',
+        controller: 'groupsController'
+      }).state('group', {
+        url: '/group',
+        templateUrl: '/templates/group.ejs',
+        controller: 'groupController'
+      }).state('profile', {
+        url: '/profile',
+        templateUrl: '/templates/profile.ejs',
+        controller: 'profileController'
+      });
+    $urlRouterProvider.otherwise('groups');
+}]);
 
 })();
