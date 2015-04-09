@@ -14,10 +14,10 @@ exports.getUser = function(userName, callback)
         
 		if(user.length == 0)
 		{
-			user=null;
+			callback(null, err);
+		} else {
+			callback(user[0], null);
 		}
-		
-		callback(user[0],err);
 	});
 }
 
