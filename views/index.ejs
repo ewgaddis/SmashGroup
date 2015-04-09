@@ -95,23 +95,14 @@
 		  
           <!-- /.search form -->
           <!-- sidebar menu: : style can be found in sidebar.less -->
-          <ul class="sidebar-menu" data-ng-controller="groupController as groupCtrl">
+          <ul class="sidebar-menu">
             <li class="header">GROUPS</li>	
-			<li class="treeview" ng-repeat="category in groupCtrl.groupCategories">
+			<li class="treeview" ng-repeat="group in user.joinedGroups">
               <a href>
                 <i class="fa" ng-class="groupCtrl.getClass(category)"></i>
-                <span>{{category.name}}</span>
-				<i class="fa fa-angle-left pull-right"></i>
+                <span>{{group.name}}</span>
                 <span class="label label-primary pull-right">4</span>
               </a>
-              <ul class="treeview-menu">
-                <li ng-repeat="group in category.groups">
-				  <a href="#">
-				    <i class="fa fa-circle-o"></i>{{group.name}}
-					<span class="label label-primary pull-right">4</span>
-			      </a>
-				</li>
-              </ul>
             </li>
           </ul>
         </section>

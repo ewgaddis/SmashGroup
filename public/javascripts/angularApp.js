@@ -6,10 +6,14 @@ app.controller('userController', [
 	'$scope',
 	'$http',
 	function($scope, $http) {
-		$scope.userMenu = "/userMenu.html";
-		
 		$http.get('/users/get').success(function(data, status, headers, config) {
 	    	$scope.user = data;
+	    	
+	    	$http.get('/groups/getJoined').success(function(data, status, headers, config) {
+		    	$scope.user.joinedGroups = data;
+	    	}).error(function(data, status, headers, config) {
+		    	$scope.user.joinedGroups = [];
+	    	});
     	}).error(function(data, status, headers, config) {
 	    	$scope.user = null;
     	});
@@ -20,9 +24,9 @@ app.controller('groupController', [
 	'$scope',
     '$http',
   	function($scope, $http) {
-    	this.groupCategories = categories;
+    	$scope.groupCategories = categories;
     	
-		this.getClass = function(category){
+		$scope.getClass = function(category){
 			return category.icon;
 		};
 	}
@@ -50,4 +54,3 @@ app.controller('groupController', [
   ];
 
 })();
- 

@@ -54,6 +54,18 @@ exports.getGroup = function(groupName, callback)
 		}
 	});
 }
+
+exports.getGroupById = function(groupId, callback)
+{
+	Group.findOne({_id: groupId}).exec(function(err, group) {
+		if(err) {
+			callback(null, err);
+		} else {
+			callback(group, null);
+		}
+	});
+}
+
 //getGroupsByCategory(category)
 exports.getGroupsByCategory = function(Category, callback)
 {
