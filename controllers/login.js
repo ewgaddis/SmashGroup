@@ -10,12 +10,11 @@ exports.get = function(req, res, next) {
 };
 
 exports.post = function(req, res, next) {
-	console.log(req.body);
 			
 	daos.getUser(req.body.username, function(user, err) {
-		if(user.length == 0) {
+		if(!user) {
 			err = 'User not found.';
-		} else if(user[0].password === util.hashPW(req.body.password.toString())) {
+		} else if(user.password === util.hashPW(req.body.password.toString())) {
 			// user logged in
 			req.session.regenerate(function() {
 				req.session.user = user.id;
@@ -25,9 +24,6 @@ exports.post = function(req, res, next) {
 			});
 		}
         else {
-            console.log(user);
-            console.log(user.password);
-            console.log(util.hashPW(req.body.password.toString()));
 			err = 'Authentication failed.';
 		}
 				

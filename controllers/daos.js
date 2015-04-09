@@ -11,13 +11,13 @@ exports.getUser = function(userName, callback)
 {
 	User.find({username:userName}).exec(function(err,user)
 	{
-
-		if(!user)
+        
+		if(user.length == 0)
 		{
 			user=null;
 		}
 		
-		callback(user,err);
+		callback(user[0],err);
 	});
 }
 
@@ -36,11 +36,10 @@ exports.addUser = function(fname, lname, uname, pw, em, phone, gps, inters)
     
     newGuy.save(function(err, inserted) {
         if (err)
-            return console.error(err);
-  		console.dir(inserted);
+            console.error(err);
+        else
+            console.dir(inserted);
 	});
-	//does this work
-	//User.Insert
 }
 
 var Group = mongoose.model('Group');

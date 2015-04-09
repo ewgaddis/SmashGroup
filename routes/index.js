@@ -3,24 +3,21 @@ var router = express.Router();
 
 var util = require('../util.js');
 
-var logout = require('../controllers/logout');
-var users  = require('../controllers/users');
-
 router.get('/', function(req, res, next) {
-  res.render('index');
+    if(req.session.user)
+        res.redirect('https://' + util.getHostName() + '/');
+    else
+        res.redirect('https://' + util.getHostName() + '/login');
 });
 
 // Redirects specific normal routes to secure routes
 router.get('/login', function(req, res, next) {
+	console.log(util.getHostName());
 	res.redirect('https://' + util.getHostName() + '/login');
 });
 	
 router.get('/signup', function(req, res, next) {
 	res.redirect('https://' + util.getHostName() + '/signup');
 });
-
-router.get('/logout', logout.get);
-
-router.get('/users/get', users.getUser);
 
 module.exports = router;
