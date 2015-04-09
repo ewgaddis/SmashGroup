@@ -28,5 +28,7 @@ routers.post('/signup', signup.post);
 routers.get('/users/get', users.getUser);
 
 routers.get('/groups/getJoined', groups.getJoinedGroups);
+routers.post('/groups/getByName', groups.getByName);
+routers.post('/groups/getByCategory', groups.getByCategory);
 
 module.exports = routers;

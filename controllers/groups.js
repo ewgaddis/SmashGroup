@@ -37,3 +37,23 @@ exports.getJoinedGroups = function(req, res, next) {
 		res.json(404, { msg: 'Access denied.' });
 	}
 };
+
+exports.getByName = function(req, res, next) {
+	daos.getGroup(req.body.name, function(group, err) {
+		if(err) {
+			res.json(404, { msg: 'Failed to get group.' });
+		} else {
+			res.json(group);
+		}
+	});
+};
+
+exports.getByCategory = function(req, res, next) {
+	daos.getGroupsByCategory(req.body.category, function(groups, err) {
+		if(err) {
+			res.json(404, { msg: 'Failed to get groups.' });
+		} else {
+			res.json(groups);
+		}
+	});
+};
