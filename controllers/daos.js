@@ -11,7 +11,6 @@ exports.getUser = function(userName, callback)
 {
 	User.find({username:userName}).exec(function(err,user)
 	{
-        
 		if(user.length == 0)
 		{
 			callback(null, err);
@@ -47,12 +46,12 @@ exports.getGroup = function(groupName, callback)
 {
 	Group.find({name:groupName}).exec(function(err,group)
 	{
-		if(group.length==0)
+        if(group.length == 0)
 		{
-			group=null;
+			callback(null, err);
+		} else {
+			callback(group[0], null);
 		}
-		
-		callback(group[0],err);
 	});
 }
 //getGroupsByCategory(category)
@@ -60,12 +59,12 @@ exports.getGroupsByCategory = function(Category, callback)
 {
 	Group.find({category:Category}).exec(function(err,groups)
 	{
-		if(groups.length==0)
+		if(groups.length == 0)
 		{
-			groups=null;
+			callback(null, err);
+		} else {
+			callback(groups[0], null);
 		}
-		
-		callback(groups,err);
 	});
 }
 //getGroupsByTitle(title) what is this
@@ -74,12 +73,12 @@ exports.getGroupsByZip = function(zip, callback)
 {
 	Group.find({zipcode:zip}).exec(function(err,groups)
 	{
-		if(groups.length==0)
+		if(groups.length == 0)
 		{
-			groups=null;
+			callback(null, err);
+		} else {
+			callback(groups[0], null);
 		}
-		
-		callback(groups,err);
 	});
 }
 //addGroup(group)
@@ -128,12 +127,12 @@ exports.getRequests=function(groupName, callback)
 {
 	Group.findOne({name:groupName}).exec(function(err,group)
 	{
-		if(group.length==0)
+		if(group.length == 0)
 		{
-			group=null;
+			callback(null, err);
+		} else {
+			callback(group[0], null);
 		}
-		
-		callback(group,err);
 	});
 }
 
