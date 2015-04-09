@@ -9,6 +9,7 @@ var login  = require('../controllers/login');
 var logout = require('../controllers/logout');
 var users  = require('../controllers/users');
 var groups = require('../controllers/groups');
+var categories = require('../controllers/categories');
 
 routers.get('/', function(req, res, next) {
     if(req.session.user)
@@ -30,5 +31,7 @@ routers.get('/users/get', users.getUser);
 routers.get('/groups/getJoined', groups.getJoinedGroups);
 routers.post('/groups/getByName', groups.getByName);
 routers.post('/groups/getByCategory', groups.getByCategory);
+
+routers.get('/categories/get', categories.get);
 
 module.exports = routers;

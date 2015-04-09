@@ -149,3 +149,18 @@ exports.getRequests=function(groupName, callback)
 }
 
 //addMember(userId, groupId)
+
+var Category = mongoose.model('Category');
+
+exports.getCategories = function(callback)
+{
+	Category.find().exec(function(err, categories)
+	{
+		if(categories.length == 0)
+		{
+			callback(null, err);
+		} else {
+			callback(categories, null);
+		}
+	});
+}
