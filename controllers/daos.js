@@ -47,12 +47,12 @@ exports.getGroup = function(groupName, callback)
 {
 	Group.find({name:groupName}).exec(function(err,group)
 	{
-		if(!group)
+		if(group.length==0)
 		{
 			group=null;
 		}
 		
-		callback(group,err);
+		callback(group[0],err);
 	});
 }
 //getGroupsByCategory(category)
@@ -60,7 +60,7 @@ exports.getGroupsByCategory = function(Category, callback)
 {
 	Group.find({category:Category}).exec(function(err,groups)
 	{
-		if(!groups)
+		if(groups.length==0)
 		{
 			groups=null;
 		}
@@ -74,7 +74,7 @@ exports.getGroupsByZip = function(zip, callback)
 {
 	Group.find({zipcode:zip}).exec(function(err,groups)
 	{
-		if(!groups)
+		if(groups.length==0)
 		{
 			groups=null;
 		}
@@ -110,7 +110,7 @@ exports.addRequest = function(newUserName, groupToadd)
 {
 	Group.findOne({name:groupToadd}).exec(function(err,group)
 	{
-		if(!group)
+		if(group.length==0)
 		{
 			console.log("error cant find group");
 		}
@@ -128,7 +128,7 @@ exports.getRequests=function(groupName, callback)
 {
 	Group.findOne({name:groupName}).exec(function(err,group)
 	{
-		if(!group)
+		if(group.length==0)
 		{
 			group=null;
 		}
