@@ -5,7 +5,8 @@ var app = angular.module('smashGroup', ['ui.router']);
 app.controller('userController', [
 	'$scope',
 	'$http',
-	function($scope, $http) {
+	'$window',
+	function($scope, $http, $window) {
 		$http.get('/users/get').success(function(data, status, headers, config) {
 	    	$scope.user = data;
 	    	
@@ -17,6 +18,22 @@ app.controller('userController', [
     	}).error(function(data, status, headers, config) {
 	    	$scope.user = null;
     	});
+    	
+    	$http.get('/categories/get').success(function(data, status, headers, config) {
+			$scope.categories = data;
+		}).error(function(data, status, headers, config) {
+			$scope.categories = [];
+		});
+		
+		$scope.isInterested = function(categoryId) {
+			for(var i = 0; i < $scope.user.interests.length; ++i) {
+				if($scope.user.interests[i] == categoryId) {
+					return true;
+				}
+			}
+			
+			return false;
+		};
 	}
 ]);
 
@@ -40,7 +57,6 @@ app.controller('profileController', [
 	'$scope',
 	'$http',
 	function($scope, $http) {
-		//get profile info to display
 	}
 ]);
 
