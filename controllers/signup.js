@@ -17,10 +17,25 @@ exports.post = function(req, res)
         
 		if (!user){
             var body = req.body;
-            daos.addUser(body.firstname, body.lastname, body.username,
-                util.hashPW(body.password), body.email, "", [], []);
             
-            res.send('Sucess! Please sign in.');
+            daos.getCategories(function(categories, err) {
+				if(err) {
+					res.json(500, { msg: 'Failed to get categories.' });
+				}
+				
+				var interests = [];
+				
+				for(var i = 0; i < categories.length; ++i) {
+					if(req.body[categories[i].name]) {
+						interests.push(categories[i]._id);
+					}
+				}
+				
+	            daos.addUser(body.firstname, body.lastname, body.username,
+	                util.hashPW(body.password), body.email, body.phone, [], interests);
+	            
+	            res.redirect('/');
+            });
 		}
         else {
 			err = 'Username:' + req.body.username + 'already in use.';

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" style="height:100%;">
+<html lang="en" style="height:100%;" data-ng-app="smashGroup">
 <head>
   <meta charset="UTF-8">
   <title>Sign up for SmashGroup!</title>
@@ -15,8 +15,15 @@
   <!-- AdminLTE Skins. Choose a skin from the css/skins 
     folder instead of downloading all of them to reduce the load. -->
   <link href="dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+  
+  <!-- AngularJS CDN -->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.8/angular.min.js"></script>
+  <!-- AngularJS App -->
+  <script src="javascripts/angularApp.js"></script>
+  <!-- Angular UI-Router -->
+  <script src="//angular-ui.github.io/ui-router/release/angular-ui-router.js"></script>
 </head>
-<body class="skin-red sidebar-collapse" style="height:100%;">
+<body class="skin-red sidebar-collapse" style="height:100%;" ng-controller="userController">
   <div class="wrapper" style="background-color:#ecf0f5;position:relative;padding-bottom:51px;">
 		<header class="main-header">
 			<!-- Logo -->
@@ -47,8 +54,8 @@
               <label class="control-label">Email Address:</label>
               <input type="text" name="email" placeholder="email@example.com" class="form-control">
               
-              <label class="control-label">ZipCode:</label>
-              <input type="text" name="zipcode" placeholder="Ex: 84601" class="form-control">
+              <label class="control-label">Phone Number:</label>
+              <input type="text" name="phone" placeholder="Ex: 555-5555" class="form-control">
             </div>
             <div class="col-xs-12 col-sm-4">
               <label class="control-label">Desired Username:</label>
@@ -61,42 +68,12 @@
           <div class="form-group">
             <div class="col-xs-12 col-sm-offset-3 col-sm-3">
               <label class="control-label">Interests:</label>
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" name="gaming" value="gaming">Gaming
-                </label>
-              </div>
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" name="movies" value="movies">TV/Movies
-                </label>
-              </div>
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" name="outdoors" value="outdoors">Outdoor Adventures
-                </label>
-              </div>
-            </div>
-            <div class="col-xs-12 col-sm-3">
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" name="books" value="books">Reading Adventures
-                </label>
-              </div>
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" name="art" value="art">The Arts
-                </label>
-              </div>
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" name="computers" value="computers">Computer Programming
-                </label>
-              </div>
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" name="other" value="other">Other (not listed)
-                </label>
+              <div ng-repeat="category in categories">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="{{category.name}}" value="{{category._id}}">{{category.name}}
+                  </label>
+                </div>
               </div>
             </div>
           </div>
