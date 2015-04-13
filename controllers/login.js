@@ -13,23 +13,23 @@ exports.post = function(req, res, next) {
 			
 	daos.getUser(req.body.username, function(user, err) {
 		if(!user) {
-			err = 'User not found.';
+			err = 'Invalid username or password';
 		} else if(user.password === util.hashPW(req.body.password.toString())) {
 			// user logged in
 			req.session.regenerate(function() {
 				req.session.user = user.id;
 				req.session.username = user.username;
 
-				res.redirect('http://' + util.getHostName() + '/');
+				res.sendStatus(200);
 			});
 		}
         else {
-			err = 'Authentication failed.';
+			err = 'Invalid username or password';
 		}
 				
 		if(err) {
 			req.session.regenerate(function() {
-				res.send(err);
+				res.send(404, err);
 			});
 		}
 	});

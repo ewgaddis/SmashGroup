@@ -95,7 +95,7 @@
             </div>
           </div>
           <div class="text-center form-group">
-            <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">
+            <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert()">
                 {{alert.msg}}
             </alert>
             <input type="submit" value="Sign Me Up!" class="btn btn-default">
