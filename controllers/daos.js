@@ -55,7 +55,7 @@ exports.getGroup = function(groupName, callback)
 	});
 }
 
-exports.getGroupById = function(groupId, callback)
+function getGroupById(groupId, callback)
 {
 	Group.findOne({_id: groupId}).exec(function(err, group) {
 		if(err) {
@@ -65,6 +65,8 @@ exports.getGroupById = function(groupId, callback)
 		}
 	});
 }
+
+exports.getGroupById = getGroupById;
 
 //getGroupsByCategory(category)
 exports.getGroupsByCategory = function(Category, callback)
@@ -116,6 +118,30 @@ exports.addGroup = function(gname, descrip, sched, zip,adms,membs, membRecs, cat
 	//does this work
 	//User.Insert
 }
+
+function addCommentToGroup(groupId, newComment, callback) {
+	getGroupById(groupId, function(group, err) {
+		if(err) {
+			callback(err);
+			return;
+		}
+		
+		group.comments.push(newComment._id);
+		Group.update({ _id: groupId }, {
+			$set: {
+				comments: group.comments
+			}
+		}).exec(function(err, results) {
+			if(err) {
+				callback(err);
+				return;
+			}
+		
+			callback(null);
+		});
+	});
+}
+
 //addRequest(senderId, groupId)
 exports.addRequest = function(newUserName, groupToadd)
 {
@@ -162,5 +188,41 @@ exports.getCategories = function(callback)
 		} else {
 			callback(categories, null);
 		}
+	});
+}
+
+
+var Comment = mongoose.model('Comment');
+
+exports.getComment = function(commentId, callback)
+{
+	Comment.find({ _id: commentId }).exec(function(err, comments)
+	{
+		if(comments.length == 0)
+		{
+			callback(null, err);
+		} else {
+			callback(comments[0], null);
+		}
+	});
+}
+
+exports.addComment = function(groupId, username, content, callback) {
+	var newComment = new Comment({
+		commentText: content,
+		user:        username
+	});
+
+	newComment.save(function(err, newComment) {
+  		if (err) {
+  			callback(null, err);
+  			return;
+		}
+  			
+  		console.dir(newComment);
+  		
+  		addCommentToGroup(groupId, newComment, function(err) {
+	  		callback(newComment, err);
+  		});
 	});
 }

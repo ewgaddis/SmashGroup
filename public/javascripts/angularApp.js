@@ -47,9 +47,38 @@ app.controller('groupsController', [
 
 app.controller('groupController', [
 	'$scope',
+	'$stateParams',
 	'$http',
-	function($scope, $http) {
-		//get group to display
+	'$window',
+	function($scope, $stateParams, $http, $window) {
+		$http.post('/groups/getById', { id: $stateParams.id }).success(function(data, status, headers, config) {
+			$scope.group = data;
+			
+			$http.post('/comments/get', { ids: $scope.group.comments }).success(function(data, status, headers, config) {
+				$scope.comments = data;
+			}).error(function(data, status, headers, config) {
+				$scope.comments = [];
+			});
+		}).error(function(data, status, headers, config) {
+			$scope.group = [];
+		});
+		
+		$scope.newComment = null;
+		
+		$scope.addComment = function() {
+			if($scope.newComment == null || $scope.newComment === '') {
+				return;
+			}
+			
+			$http.post('/comments/add', { groupId: $scope.group._id, content: $scope.newComment })
+			.success(function(data, status, headers, config) {
+				$scope.group.comments.push(data);
+				$scope.comments.push(data);
+				$scope.newComment = '';
+			}).error(function(data, status, headers, config) {
+				$window.alert("Failed to add comment");
+			});
+		};
 	}
 ]);
 
@@ -70,7 +99,7 @@ app.config([
         templateUrl: '/templates/groups.ejs',
         controller: 'groupsController'
       }).state('group', {
-        url: '/group',
+        url: '/group/{id}',
         templateUrl: '/templates/group.ejs',
         controller: 'groupController'
       }).state('profile', {
