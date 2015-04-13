@@ -1,6 +1,6 @@
 (function(){
 
-var app = angular.module('smashGroup', ['ui.router']);
+var app = angular.module('smashGroup', ['ui.router', 'ui.bootstrap']);
 
 app.controller('userController', [
 	'$scope',
@@ -34,6 +34,36 @@ app.controller('userController', [
 			
 			return false;
 		};
+	}
+]);
+
+app.controller('signupController', [
+	'$scope',
+    '$window',
+	'$http',
+	function($scope, $window, $http) {
+        
+		$http.get('/categories/get').success(function(data, status, headers, config) {
+			$scope.categories = data;
+		}).error(function(data, status, headers, config) {
+			$scope.categories = [];
+		});
+        
+        $scope.submitForm = function(){
+            console.log("in submit");
+            $http.post( '/signup', $('form#myForm').serializeObject()).
+            success(function(data, status, headers, config) {
+                console.log("good");
+                $window.location = '/';
+            }).
+            error(function(data, status, headers, config) {
+                $scope.alerts = [{msg: data}];
+            });
+        };
+        
+        $scope.closeAlert = function(index) {
+            $scope.alerts.splice(index, 1);
+        };
 	}
 ]);
 
@@ -80,5 +110,22 @@ app.config([
       });
     $urlRouterProvider.otherwise('groups');
 }]);
+
+$.fn.serializeObject = function()
+{
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function() {
+        if (o[this.name] !== undefined) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+    return o;
+};
 
 })();

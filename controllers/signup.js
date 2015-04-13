@@ -19,31 +19,30 @@ exports.post = function(req, res)
             var body = req.body;
             
             daos.getCategories(function(categories, err) {
-				if(err) {
-					res.json(500, { msg: 'Failed to get categories.' });
-				}
-				
 				var interests = [];
 				
-				for(var i = 0; i < categories.length; ++i) {
-					if(req.body[categories[i].name]) {
-						interests.push(categories[i]._id);
-					}
-				}
+                if(categories)
+                {
+                    for(var i = 0; i < categories.length; ++i) {
+                        if(req.body[categories[i].name]) {
+                            interests.push(categories[i]._id);
+                        }
+                    }
+                }
 				
 	            daos.addUser(body.firstname, body.lastname, body.username,
 	                util.hashPW(body.password), body.email, body.phone, [], interests);
 	            
-	            res.redirect('/');
+	            res.sendStatus(200);
             });
 		}
         else {
-			err = 'Username:' + req.body.username + 'already in use.';
+			err = 'Username: ' + req.body.username + ' already in use.';
 		}
 				
 		if(err) {
 			req.session.regenerate(function() {
-				res.send(err);
+				res.send(404, err);
 			});
 		}
 	});
