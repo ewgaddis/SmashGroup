@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en" style="height:100%;">
+<html lang="en" style="height:100%;" data-ng-app="smashGroup">
 
 <head>
 	<meta charset="UTF-8">
@@ -9,17 +9,28 @@
     <!-- Bootstrap 3.3.2 -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
     <!-- FontAwesome 4.3.0 -->
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <!-- Ionicons 2.0.0 -->
-    <link href="https://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />    
+    <link href="//code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />    
     <!-- Theme style -->
     <link href="dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
     <!-- AdminLTE Skins. Choose a skin from the css/skins 
-         folder instead of downloading all of them to reduce the load. -->
+      folder instead of downloading all of them to reduce the load. -->
     <link href="dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+    
+    <!-- jQuery 2.1.3 -->
+    <script src="plugins/jQuery/jQuery-2.1.3.min.js"></script>
+    <!-- AngularJS CDN -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.8/angular.min.js"></script>
+    <!-- ui bootstrap -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.1/ui-bootstrap-tpls.min.js"></script>
+    <!-- AngularJS App -->
+    <script src="javascripts/angularApp.js"></script>
+    <!-- Angular UI-Router -->
+    <script src="//angular-ui.github.io/ui-router/release/angular-ui-router.js"></script>
 </head>
 
-<body class="skin-red sidebar-collapse" style="height:100%;">
+<body class="skin-red sidebar-collapse" style="height:100%;" ng-controller="loginController">
 	<div class="wrapper" style="background-color:#ecf0f5;position:relative;padding-bottom:51px;">
 		<header class="main-header">
 			<!-- Logo -->
@@ -40,14 +51,19 @@
 			<!-- Main content -->
       <div class="col-xs-12 col-sm-6 container">
         <div class="col-xs-offset-1 col-xs-10 col-sm-offset-3 col-sm-8">
-          <form method="POST" action="/login" class="form-horizontal">
+          <form ng-submit="submitForm()" class="form-horizontal" id="myForm">
+            <h1>Log In</h1>
             <div class="form-group">
-              <h1>Log In</h1>
               <label class="control-label">Username:</label>
               <input type="text" name="username" class="form-control">
+            </div>
+            <div class="form-group">
               <label class="control-label">Password:</label>
               <input type="password" name="password" class="form-control">
             </div>
+            <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert()">
+              {{alert.msg}}
+            </alert>
             <div class="form-group">
               <input type="submit" value="Log In" class="btn btn-default">
             </div>

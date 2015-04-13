@@ -50,10 +50,32 @@ app.controller('signupController', [
 		});
         
         $scope.submitForm = function(){
-            console.log("in submit");
+            $scope.closeAlert();
             $http.post( '/signup', $('form#myForm').serializeObject()).
             success(function(data, status, headers, config) {
-                console.log("good");
+                $window.location = '/';
+            }).
+            error(function(data, status, headers, config) {
+                $scope.alerts = [{msg: data}];
+            });
+        };
+        
+        $scope.closeAlert = function() {
+            $scope.alerts = [];
+        };
+	}
+]);
+
+app.controller('loginController', [
+	'$scope',
+    '$window',
+	'$http',
+	function($scope, $window, $http) {
+        
+        $scope.submitForm = function(){
+            $scope.closeAlert();
+            $http.post( '/login', $('form#myForm').serializeObject()).
+            success(function(data, status, headers, config) {
                 $window.location = '/';
             }).
             error(function(data, status, headers, config) {
@@ -62,7 +84,7 @@ app.controller('signupController', [
         };
         
         $scope.closeAlert = function(index) {
-            $scope.alerts.splice(index, 1);
+            $scope.alerts = [];
         };
 	}
 ]);
