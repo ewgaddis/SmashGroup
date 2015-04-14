@@ -101,7 +101,7 @@
           <ul class="sidebar-menu">
             <li class="header">GROUPS</li>
             <li class="treeview" ng-repeat="group in user.joinedGroups">
-              <a href="#/group">
+              <a href="#/group/{{group._id}}">
                 <i class="fa" ng-class="groupCtrl.getClass(category)"></i>
                 <span>{{group.name}}</span>
                 <span class="label label-primary pull-right">4</span>

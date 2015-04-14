@@ -38,6 +38,16 @@ exports.getJoinedGroups = function(req, res, next) {
 	}
 };
 
+exports.getById = function(req, res, next) {
+	daos.getGroupById(req.body.id, function(group, err) {
+		if(err) {
+			res.json(404, { msg: 'Failed to get group.' });
+		} else {
+			res.json(group);
+		}
+	});
+};
+
 exports.getByName = function(req, res, next) {
 	daos.getGroup(req.body.name, function(group, err) {
 		if(err) {
