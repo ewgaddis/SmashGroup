@@ -88,6 +88,12 @@
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
 		  <!-- search form -->
+          <span>
+            <button action="submit">
+              <p>Create a New Group</p>
+            </button>
+          </span>
+          
           <form action="#" method="get" class="sidebar-form">
             <div class="input-group">
               <input type="text" name="q" class="form-control" placeholder="Search..."/>
@@ -104,7 +110,7 @@
               <a href="#/group/{{group._id}}">
                 <i class="fa" ng-class="groupCtrl.getClass(category)"></i>
                 <span>{{group.name}}</span>
-                <span class="label label-primary pull-right">4</span>
+                <span class="label label-primary pull-right">{{group.members.length}}</span>
               </a>
             </li>
           </ul>
