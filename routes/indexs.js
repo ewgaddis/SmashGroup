@@ -39,6 +39,7 @@ routers.post('/groups/getByCategory', groups.getByCategory);
 routers.post('/group/addRequest', groups.addRequest);
 routers.post('/group/getRequestUsers', groups.getRequestUsers);
 routers.post('/group/addMember', groups.addMember);
+routers.post('/group/createNewGroup', groups.createNewGroup);
 
 routers.get('/categories/get', categories.get);
 

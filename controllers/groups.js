@@ -137,3 +137,7 @@ exports.addMember = function(req, res, next) {
 		res.json(404, { msg: 'Access denied.' });
 	}
 };
+
+exports.createNewGroup = function(req,res,next){
+	
+}
