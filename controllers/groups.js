@@ -57,3 +57,14 @@ exports.getByCategory = function(req, res, next) {
 		}
 	});
 };
+
+exports.getAll = function(req, res, next){
+	daos.getAllGroups(function(groups, err){
+		if (err){
+			res.json(404, { msg: 'Failed to get groups.' });
+		}
+		else{
+			res.json(groups);
+		}
+	});
+};

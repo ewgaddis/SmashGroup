@@ -29,6 +29,7 @@ routers.post('/signup', signup.post);
 routers.get('/users/get', users.getUser);
 routers.post('/users/update', users.updateUser);
 
+routers.get('/groups/getAll'), groups.getAll);
 routers.get('/groups/getJoined', groups.getJoinedGroups);
 routers.post('/groups/getByName', groups.getByName);
 routers.post('/groups/getByCategory', groups.getByCategory);

@@ -164,3 +164,14 @@ exports.getCategories = function(callback)
 		}
 	});
 }
+
+exports.getAllGroups = function(callback){
+	Group.find().exec(function(err,groups){
+		if(groups.length == 0){
+			callback(null, err);
+		}
+		else{
+			callback(groups, null);
+		}
+	});
+};
