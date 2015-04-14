@@ -94,6 +94,9 @@ app.controller('groupsController', [
 	'$http',
 	function($scope, $http) {
 		//get groups to display
+        $http.get('/groups/getAll').success(function(data, status, headers, config){
+            $scope.groups = data;
+        });
 	}
 ]);
 
