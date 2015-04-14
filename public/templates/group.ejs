@@ -11,8 +11,40 @@
   <div class="row">
     <!-- Left col -->
     <section class="col-lg-7 connectedSortable">
-      <!-- Chat box -->
+      <!-- Description box -->
       <div class="box box-success">
+        <div class="box-header">
+          <h3 class="box-title">Description</h3>
+        </div>
+        <p>{{group.description}}</p>
+        <div class="box-header">
+          <h3 class="box-title">Schedule</h3>
+        </div>
+        <p>{{group.schedule}}</p>
+      </div><!-- /.box (description box) -->
+      
+      <!-- Admin box -->
+      <div class="box box-success" ng-hide="group.admins[0] != user._id">
+        <div class="box-header">
+          <h3 class="box-title">Administration</h3>
+        </div>
+        <p>{{group.description}}</p>
+        <div class="box-header">
+          <h3 class="box-title">Schedule</h3>
+        </div>
+        <p>{{group.schedule}}</p>
+      </div><!-- /.box (admin box) -->
+      
+      <!-- Request box -->
+      <div class="box box-success" ng-hide="isMember(user._id) || isRequestedMember(user._id)">
+        <div class="box-header">
+          <h3 class="box-title">Request to Join</h3><br>
+          <button class="btn btn-success" ng-click="addRequest(user._id)">Request</button>
+        </div>
+      </div><!-- /.box (request box) -->
+      
+      <!-- Chat box -->
+      <div class="box box-success" ng-hide="!isMember(user._id)">
         <div class="box-header">
           <i class="fa fa-comments-o"></i>
           <h3 class="box-title">Comments</h3>
@@ -40,74 +72,5 @@
         </div>
       </div><!-- /.box (chat box) -->
     </section><!-- /.Left col -->
-    <!-- right col (We are only adding the ID to make the widgets sortable)-->
-    <section class="col-lg-5 connectedSortable">
-      <!-- Calendar -->
-      <div class="box box-solid bg-green-gradient">
-        <div class="box-header">
-          <i class="fa fa-calendar"></i>
-          <h3 class="box-title">Calendar</h3>
-          <!-- tools box -->
-          <div class="pull-right box-tools">
-            <!-- button with a dropdown -->
-            <div class="btn-group">
-              <button class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i></button>
-              <ul class="dropdown-menu pull-right" role="menu">
-                <li><a href="#">Add new event</a></li>
-                <li><a href="#">Clear events</a></li>
-                <li class="divider"></li>
-                <li><a href="#">View calendar</a></li>
-              </ul>
-            </div>
-            <button class="btn btn-success btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
-            <button class="btn btn-success btn-sm" data-widget="remove"><i class="fa fa-times"></i></button>
-          </div><!-- /. tools -->
-        </div><!-- /.box-header -->
-        <div class="box-body no-padding">
-          <!--The calendar -->
-          <div id="calendar" style="width: 100%"></div>
-        </div><!-- /.box-body -->
-        <div class="box-footer text-black">
-          <div class="row">
-            <div class="col-sm-6">
-              <!-- Progress bars -->
-              <div class="clearfix">
-                <span class="pull-left">Task #1</span>
-                <small class="pull-right">90%</small>
-              </div>
-              <div class="progress xs">
-                <div class="progress-bar progress-bar-green" style="width: 90%;"></div>
-              </div>
-
-              <div class="clearfix">
-                <span class="pull-left">Task #2</span>
-                <small class="pull-right">70%</small>
-              </div>
-              <div class="progress xs">
-                <div class="progress-bar progress-bar-green" style="width: 70%;"></div>
-              </div>
-            </div><!-- /.col -->
-            <div class="col-sm-6">
-              <div class="clearfix">
-                <span class="pull-left">Task #3</span>
-                <small class="pull-right">60%</small>
-              </div>
-              <div class="progress xs">
-                <div class="progress-bar progress-bar-green" style="width: 60%;"></div>
-              </div>
-
-              <div class="clearfix">
-                <span class="pull-left">Task #4</span>
-                <small class="pull-right">40%</small>
-              </div>
-              <div class="progress xs">
-                <div class="progress-bar progress-bar-green" style="width: 40%;"></div>
-              </div>
-            </div><!-- /.col -->
-          </div><!-- /.row -->
-        </div>
-      </div><!-- /.box -->
-
-    </section><!-- right col -->
   </div><!-- /.row (main row) -->
 </section><!-- /.content -->

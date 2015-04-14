@@ -78,3 +78,18 @@ exports.getAll = function(req, res, next){
 		}
 	});
 };
+
+exports.addRequest = function(req, res, next) {
+	if(req.session.user)
+	{
+		daos.addRequest(req.body.userId, req.body.groupId, function(err) {
+			if(err) {
+				res.json(500, { msg: 'Failed to add request.' });
+			} else {
+				res.json({ msg: 'Success.' });
+			}
+		});
+	} else {
+		res.json(404, { msg: 'Access denied.' });
+	}
+};
