@@ -49,7 +49,7 @@
 		<div class="content-wrapper">
 			<!-- Main content -->
       <div class="col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8 well" style="margin-top:2em;">
-        <form ng-submit="submitForm()" data-toggle="validator" class="form-horizontal" id="myForm">
+        <form ng-submit="myForm.$valid && submitForm()" data-toggle="validator" class="form-horizontal" id="myForm">
           <div class="form-group">
             <h1 style="text-align:center;">Sign up for SmashGroup!</h1>
             <div class="col-xs-12 col-sm-offset-2 col-sm-4" style="padding:0em;">
