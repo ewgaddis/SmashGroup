@@ -112,7 +112,7 @@ function getNextRequestUser(requestUsers, requestIds, index, res) {
 			
 			++index;
 			
-			getNextGroup(requestUsers, requestIds, index, res);
+			getNextRequestUser(requestUsers, requestIds, index, res);
 		}
 	});
 };
