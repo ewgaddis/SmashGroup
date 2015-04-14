@@ -50,14 +50,19 @@ app.controller('signupController', [
 		});
         
         $scope.submitForm = function(){
+            console.log("bla");
             $scope.closeAlert();
-            $http.post( '/signup', $('form#myForm').serializeObject()).
-            success(function(data, status, headers, config) {
-                $window.location = '/';
-            }).
-            error(function(data, status, headers, config) {
-                $scope.alerts = [{msg: data}];
-            });
+            if(!angular.element('#button').hasClass('disabled'))
+            {
+                console.log("valid");
+                $http.post( '/signup', $('form#myForm').serializeObject()).
+                success(function(data, status, headers, config) {
+                    $window.location = '/';
+                }).
+                error(function(data, status, headers, config) {
+                    $scope.alerts = [{msg: data}];
+                });
+            }
         };
         
         $scope.closeAlert = function() {
