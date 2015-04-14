@@ -28,11 +28,13 @@
         <div class="box-header">
           <h3 class="box-title">Administration</h3>
         </div>
-        <p>{{group.description}}</p>
         <div class="box-header">
-          <h3 class="box-title">Schedule</h3>
+          <h2 class="box-title">Requests:</h2>
         </div>
-        <p>{{group.schedule}}</p>
+        <div ng-repeat="request in requests">
+          {{request.username}}
+          <button class="btn btn-default" ng-click="addMember(request.userId)">Accept</button>
+        </div>
       </div><!-- /.box (admin box) -->
       
       <!-- Request box -->

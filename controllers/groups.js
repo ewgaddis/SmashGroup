@@ -93,3 +93,47 @@ exports.addRequest = function(req, res, next) {
 		res.json(404, { msg: 'Access denied.' });
 	}
 };
+
+function getNextRequestUser(requestUsers, requestIds, index, res) {
+	if(index == requestIds.length) {
+		res.json(requestUsers);
+		return;
+	}
+	
+	daos.getUserById(requestIds[index], function(user, err) {
+		if(err) {
+			console.log('Failed to get next request user.');
+			res.json(500, { msg: 'Failed to get request user.' });
+		} else {
+			requestUsers[index] = {
+				userId:   user._id,
+				username: user.username
+			};
+			
+			++index;
+			
+			getNextGroup(requestUsers, requestIds, index, res);
+		}
+	});
+};
+
+exports.getRequestUsers = function(req, res, next) {
+	var requestUsers = [];
+	
+	getNextRequestUser(requestUsers, req.body.requestIds, 0, res);
+};
+
+exports.addMember = function(req, res, next) {
+	if(req.session.user)
+	{
+		daos.addMember(req.body.userId, req.body.groupId, function(err) {
+			if(err) {
+				res.json(500, { msg: 'Failed to add member.' });
+			} else {
+				res.json({ msg: 'Success.' });
+			}
+		});
+	} else {
+		res.json(404, { msg: 'Access denied.' });
+	}
+};
