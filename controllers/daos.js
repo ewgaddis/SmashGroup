@@ -143,22 +143,34 @@ function addCommentToGroup(groupId, newComment, callback) {
 }
 
 //addRequest(senderId, groupId)
-exports.addRequest = function(newUserName, groupToadd)
+exports.addRequest = function(userId, groupId, callback)
 {
-	Group.findOne({name:groupToadd}).exec(function(err,group)
+	Group.findOne({_id:groupId}).exec(function(err,group)
 	{
-		if(group.length==0)
+		if(err)
 		{
-			console.log("error cant find group");
+			callback(err);
+			return;
 		}
 		else
 		{
-			group.update({membershipRequests:newUserName});
-			// i have no clue on this
+			group.membershipRequests.push(userId);
+			
+			Group.update({ _id: groupId }, {
+				$set: {
+					membershipRequests: group.membershipRequests
+				}
+			}).exec(function(err, results) {
+				if(err) {
+					callback(err);
+					return;
+				}
+			
+				callback(null);
+			});
 		}
 		
-	});
-	
+	});	
 }
 //getRequests(groupId)
 exports.getRequests=function(groupName, callback)

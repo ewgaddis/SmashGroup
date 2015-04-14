@@ -35,8 +35,16 @@
         <p>{{group.schedule}}</p>
       </div><!-- /.box (admin box) -->
       
+      <!-- Request box -->
+      <div class="box box-success" ng-hide="isMember(user._id) || isRequestedMember(user._id)">
+        <div class="box-header">
+          <h3 class="box-title">Request to Join</h3><br>
+          <button class="btn btn-success" ng-click="addRequest(user._id)">Request</button>
+        </div>
+      </div><!-- /.box (request box) -->
+      
       <!-- Chat box -->
-      <div class="box box-success">
+      <div class="box box-success" ng-hide="!isMember(user._id)">
         <div class="box-header">
           <i class="fa fa-comments-o"></i>
           <h3 class="box-title">Comments</h3>

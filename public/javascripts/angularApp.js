@@ -106,6 +106,10 @@ app.controller('groupController', [
 	'$http',
 	'$window',
 	function($scope, $stateParams, $http, $window) {
+		$scope.group = {
+			members: []
+		};
+		
 		$http.post('/groups/getById', { id: $stateParams.id }).success(function(data, status, headers, config) {
 			$scope.group = data;
 			
@@ -114,9 +118,31 @@ app.controller('groupController', [
 			}).error(function(data, status, headers, config) {
 				$scope.comments = [];
 			});
-		}).error(function(data, status, headers, config) {
-			$scope.group = [];
 		});
+		
+		$scope.isMember = function(userId) {
+			if($scope.group.members) {
+				for(var i = 0; i < $scope.group.members.length; ++i) {
+					if(userId == $scope.group.members[i]) {
+						return true;
+					}
+				}
+			}
+			
+			return false;
+		};
+		
+		$scope.isRequestedMember = function(userId) {
+			if($scope.group.membershipRequests) {
+				for(var i = 0; i < $scope.group.membershipRequests.length; ++i) {
+					if(userId == $scope.group.membershipRequests[i]) {
+						return true;
+					}
+				}
+			}
+			
+			return false;
+		};
 		
 		$scope.newComment = null;
 		
@@ -132,6 +158,15 @@ app.controller('groupController', [
 				$scope.newComment = '';
 			}).error(function(data, status, headers, config) {
 				$window.alert("Failed to add comment");
+			});
+		};
+		
+		$scope.addRequest = function(userId) {
+			$http.post('/group/addRequest', { groupId: $scope.group._id, userId: userId })
+			.success(function(data, status, headers, config) {
+				$window.location.reload();
+			}).error(function(data, status, headers, config) {
+				$window.alert("Failed to add request");
 			});
 		};
 	}
