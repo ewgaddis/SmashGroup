@@ -20,6 +20,19 @@ exports.getUser = function(userName, callback)
 	});
 }
 
+function getUserById(userId, callback)
+{
+	User.findOne({_id: userId}).exec(function(err, user) {
+		if(err) {
+			callback(null, err);
+		} else {
+			callback(user, null);
+		}
+	});
+}
+
+exports.getUserById = getUserById;
+
 exports.addUser = function(fname, lname, uname, pw, em, phone, gps, inters)
 {
 	var newGuy = new User({
@@ -172,21 +185,58 @@ exports.addRequest = function(userId, groupId, callback)
 		
 	});	
 }
-//getRequests(groupId)
-exports.getRequests=function(groupName, callback)
-{
-	Group.findOne({name:groupName}).exec(function(err,group)
-	{
-		if(group.length == 0)
-		{
-			callback(null, err);
-		} else {
-			callback(group[0], null);
-		}
-	});
-}
 
-//addMember(userId, groupId)
+exports.addMember = function(userId, groupId, callback)
+{
+	Group.findOne({_id:groupId}).exec(function(err,group)
+	{
+		if(err)
+		{
+			callback(err);
+			return;
+		}
+		else
+		{
+			group.membershipRequests.splice(group.membershipRequests.indexOf(userId), 1);
+			group.members.push(userId);
+			
+			Group.update({ _id: groupId }, {
+				$set: {
+					membershipRequests: group.membershipRequests,
+					members:            group.members
+				}
+			}).exec(function(err, results) {
+				if(err) {
+					callback(err);
+					return;
+				}
+				
+				getUserById(userId, function(user, err) {
+					if(err) {
+						callback(err);
+						return;
+					}
+					
+					user.groups.push(groupId);
+					
+					User.update({ _id: userId }, {
+						$set: {
+							groups: user.groups
+						}
+					}).exec(function(err, results) {
+						if(err) {
+							callback(err);
+							return;
+						}
+			
+						callback(null);
+					});
+				});
+			});
+		}
+		
+	});	
+}
 
 var Category = mongoose.model('Category');
 

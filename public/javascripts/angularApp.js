@@ -110,13 +110,19 @@ app.controller('groupController', [
 			members: []
 		};
 		
+		$scope.comments = [];
+		$scope.requests = [];
+		
 		$http.post('/groups/getById', { id: $stateParams.id }).success(function(data, status, headers, config) {
 			$scope.group = data;
 			
 			$http.post('/comments/get', { ids: $scope.group.comments }).success(function(data, status, headers, config) {
 				$scope.comments = data;
-			}).error(function(data, status, headers, config) {
-				$scope.comments = [];
+			});
+			
+			$http.post('/group/getRequestUsers', { requestIds: $scope.group.membershipRequests })
+			.success(function(data, status, headers, config) {
+				$scope.requests = data;
 			});
 		});
 		
@@ -167,6 +173,15 @@ app.controller('groupController', [
 				$window.location.reload();
 			}).error(function(data, status, headers, config) {
 				$window.alert("Failed to add request");
+			});
+		};
+		
+		$scope.addMember = function(userId) {
+			$http.post('/group/addMember', { groupId: $scope.group._id, userId: userId })
+			.success(function(data, status, headers, config) {
+				$window.location.reload();
+			}).error(function(data, status, headers, config) {
+				$window.alert("Failed to add member");
 			});
 		};
 	}
