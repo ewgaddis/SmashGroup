@@ -115,19 +115,13 @@ app.controller('groupController', [
 			members: []
 		};
 		
-		$scope.comments = [];
-		$scope.requests = [];
-		
 		$http.post('/groups/getById', { id: $stateParams.id }).success(function(data, status, headers, config) {
 			$scope.group = data;
 			
 			$http.post('/comments/get', { ids: $scope.group.comments }).success(function(data, status, headers, config) {
 				$scope.comments = data;
-			});
-			
-			$http.post('/group/getRequestUsers', { requestIds: $scope.group.membershipRequests })
-			.success(function(data, status, headers, config) {
-				$scope.requests = data;
+			}).error(function(data, status, headers, config) {
+				$scope.comments = [];
 			});
 		});
 		
@@ -180,19 +174,17 @@ app.controller('groupController', [
 				$window.alert("Failed to add request");
 			});
 		};
-		
-		$scope.addMember = function(userId) {
-			$http.post('/group/addMember', { groupId: $scope.group._id, userId: userId })
-			.success(function(data, status, headers, config) {
-				$window.location.reload();
-			}).error(function(data, status, headers, config) {
-				$window.alert("Failed to add member");
-			});
-		};
 	}
 ]);
 
 app.controller('profileController', [
+	'$scope',
+	'$http',
+	function($scope, $http) {
+	}
+]);
+
+app.controller('newGroupController', [
 	'$scope',
 	'$http',
 	function($scope, $http) {
@@ -216,6 +208,10 @@ app.config([
         url: '/profile',
         templateUrl: '/templates/profile.ejs',
         controller: 'profileController'
+      }).state('newGroup', {
+        url: '/newGroup',
+        templateUrl: '/templates/newGroup.ejs',
+        controller: 'newGroupController'
       });
     $urlRouterProvider.otherwise('groups');
 }]);
