@@ -22,8 +22,26 @@
       <div class="box-body">
         <h4>Description:</h4>
         <form>
-          describe your new group:  <input type="text" placeholder='e.g. Jumping rope is what we do.' id="description" width:400px>
+          describe your new group:  <input type="text" placeholder='e.g. Jumping rope is what we do.' id="description" width="400px">
         </form>
+        <h5>Category</h5>
+        <div ng-repeat="category in categories">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="{{category.name}}" value="{{category._id}}">{{category.name}}
+            </label>
+          </div>
+        </div>
+        <h4>Zipcode:</h4>
+        <form>
+          where is your group located?:  <input type="text" placeholder='e.g. 84604' id="zip" width="400px">
+        </form>
+      </div>
+
+      <div>
+        <button>
+          <input type="submit" id="newGroupBtn" value="Create Group" class="btn btn-default">
+        </button>
       </div>
       
       
