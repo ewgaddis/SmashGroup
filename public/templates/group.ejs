@@ -10,19 +10,15 @@
   <!-- Main row -->
   <div class="row">
     <!-- Left col -->
-    <section class="col-lg-7 connectedSortable">
+    <section class="col-lg-offset-2 col-lg-8 col-md-offset-1 col-md-10 connectedSortable">
       <!-- Description box -->
       <div class="box box-success">
-        <div class="box-header">
-          <h3 class="box-title">Description</h3>
-        </div>
         <div class="box-body">
+          <h4>Description</h4>
           <p>{{group.description}}</p>
         </div>
-        <div class="box-header">
-          <h3 class="box-title">Schedule</h3>
-        </div>
         <div class="box-body">
+          <h4>Schedule</h4>
           <p>{{group.schedule}}</p>
         </div>
       </div><!-- /.box (description box) -->
@@ -32,12 +28,12 @@
         <div class="box-header">
           <h3 class="box-title">Administration</h3>
         </div>
-        <div class="box-header">
-          <h2 class="box-title">Requests:</h2>
-        </div>
-        <div ng-repeat="request in requests">
-          {{request.username}}
-          <button class="btn btn-default" ng-click="addMember(request.userId)">Accept</button>
+        <div class="box-body">
+          <h4>Requests:</h4>
+          <div ng-repeat="request in requests">
+            {{request.username}}
+            <button class="btn btn-default" ng-click="addMember(request.userId)">Accept</button>
+          </div>
         </div>
       </div><!-- /.box (admin box) -->
       
