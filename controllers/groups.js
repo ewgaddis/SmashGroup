@@ -171,9 +171,9 @@ exports.addMember = function(req, res, next) {
 
 exports.createNewGroup = function(req,res,next){
 
-    console.log(JSON.stringify(req.body));
-    console.log(JSON.stringify(req.body.Sports));
-    console.log(JSON.stringify(req.body['Video Games']));
+    // console.log(JSON.stringify(req.body));
+    // console.log(JSON.stringify(req.body.Sports));
+    // console.log(JSON.stringify(req.body['Video Games']));
     var cats = [];
 
     daos.getCategories(function(categories, err){
@@ -193,26 +193,9 @@ exports.createNewGroup = function(req,res,next){
     		}
     	}
     });
-    
 
-    
-
-
-// daos.getAllGroups(function(groups, err){
-// 		if (err){
-// 			res.json(404, { msg: 'Failed to get groups.' });
-// 		}
-// 		else{
-// 			res.json(groups);
-// 		}
-// 	});
-
-
-
-
-
-	//var admins = [req.session.user];
-	//var cats = req.body.
-	//daos.addGroup(req.body.newGroupName, description, '', zipcode, admins, admins, [], )
+	var admins = [req.session.user];
+	console.log(description);
+	daos.addGroup(req.body.newGroupName, description, , zipcode, admins, admins, [], )
 
 }
