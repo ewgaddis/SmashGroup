@@ -28,6 +28,25 @@
         <div class="box-header">
           <h3 class="box-title">Administration</h3>
         </div>
+        <form ng-submit="updateGroup()" class="form-horizontal" id="myGroupForm">
+          <div class="form-group">
+            <div class="col-xs-12 col-sm-offset-1 col-sm-4">
+              <label class="control-label">Description:</label>
+              <input type="text" name="description" value="{{group.description}}" class="form-control">
+              
+              <label class="control-label">Schedule:</label>
+              <input type="text" name="schedule" value="{{group.schedule}}" class="form-control">
+              
+              <label class="control-label">Zipcode:</label>
+              <input type="text" name="zipcode" value="{{group.zipcode}}" class="form-control">
+            </div>
+          </div>
+          <div class="box-footer">
+	        <div class="input-group">
+	          <input type="submit" value="Update" class="btn btn-default">
+	        </div>
+	      </div>
+        </form>
         <div class="box-body">
           <h4>Requests:</h4>
           <div ng-repeat="request in requests">

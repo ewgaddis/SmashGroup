@@ -189,6 +189,17 @@ app.controller('groupController', [
 				$window.alert("Failed to add member");
 			});
 		};
+		
+		$scope.updateGroup = function() {
+            $http.post('/group/update', {
+	            groupId: $scope.group._id,
+	            info:    $('form#myGroupForm').serializeObject()
+            }).success(function(data, status, headers, config) {
+                $window.location.reload();
+            }).error(function(data, status, headers, config) {
+                $window.alert('Failed to update group information.');
+            });
+        };
 	}
 ]);
 
