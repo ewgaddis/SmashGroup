@@ -196,6 +196,6 @@ exports.createNewGroup = function(req,res,next){
 
 	var admins = [req.session.user];
 	console.log(description);
-	daos.addGroup(req.body.newGroupName, description, schedule, zipcode, admins, admins, [], )
+	//daos.addGroup(req.body.newGroupName, description, schedule, zipcode, admins, admins, [], )
 
 }
