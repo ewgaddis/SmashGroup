@@ -12,39 +12,37 @@
 <section class="content">
   <div class="col-lg-offset-2 col-lg-8 col-md-offset-1 col-md-10">
     <!-- small box -->
-    <div class="box">
-      <div class="box-header">
-        <h3 class="box-title" float:left>New Group Name</h3>
-        <form> 
-          <input type="text" placeholder='e.g. Jumpropers United' id="newGroupName">
-        </form>
-      </div>
-      <div class="box-body">
-        <h4>Description:</h4>
-        <form>
-          describe your new group:  <input type="text" placeholder='e.g. Jumping rope is what we do.' id="description" width="400px">
-        </form>
-        <h5>Category</h5>
-        <div ng-repeat="category in categories">
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" name="{{category.name}}" value="{{category._id}}">{{category.name}}
-            </label>
-          </div>
+    <form method="POST" action="/group/createNewGroup">
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title" float:left>New Group Name</h3>
+          
+            <input type="text" placeholder='e.g. Jumpropers United' name="newGroupName">
+          
         </div>
-        <h4>Zipcode:</h4>
-        <form>
-          where is your group located?:  <input type="text" placeholder='e.g. 84604' id="zip" width="400px">
-        </form>
+        <div class="box-body">
+          <h4>Description:</h4>
+            describe your new group:  <input type="text" placeholder='e.g. Jumping rope is what we do.' name="description" width="400px">
+          <h4>Category</h4>
+          <div ng-repeat="category in categories">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="{{category.name}}" value="{{category._id}}">{{category.name}}
+              </label>
+            </div>
+          </div>
+          <h4>Zipcode</h4>
+            where is your group located? <input type="text" placeholder='e.g. 84604' name="zipcode" width="400px">
+          <h4>Schedule:</h4>
+            When will you get together?  <input type="text" placeholder='e.g. Saturdays at 10:00am.' name="schedule" width="400px">
+        </div>
+        <div>
+          <button>
+            <input type="submit" value="Create Group" class="btn btn-default">
+          </button>
+        </div>
       </div>
 
-      <div>
-        <button>
-          <input type="submit" id="newGroupBtn" value="Create Group" class="btn btn-default">
-        </button>
-      </div>
-      
-      
-    </div>
+    </form>
   </div><!-- /.row -->
 </section><!-- /.content -->
