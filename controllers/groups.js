@@ -79,6 +79,37 @@ exports.getAll = function(req, res, next){
 	});
 };
 
+exports.update = function(req, res, next) {
+	if(req.session.user)
+	{
+		daos.getGroupById(req.body.groupId, function(group, err) {
+			if(err) {
+				res.json(500, { msg: 'Failed to get group.' });
+				return;
+			}
+			
+			if(req.session.user != group.admins[0]) {
+				res.json(400, { msg: 'Must be an admin. to update group info.' });
+				return;
+			}
+			
+			group.description = req.body.info.description;
+			group.schedule    = req.body.info.schedule;
+			group.zipcode     = req.body.info.zipcode;
+				
+			group.save(function(err) {
+				if(err) {
+					res.json(500, { msg: 'Failed to update group.' });
+				} else {
+					res.json({ msg: 'Success.' });
+				}
+			});
+		});
+	} else {
+		res.json(404, { msg: 'Access denied.' });
+	}
+};
+
 exports.addRequest = function(req, res, next) {
 	if(req.session.user)
 	{
