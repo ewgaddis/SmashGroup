@@ -184,6 +184,7 @@ exports.createNewGroup = function(req,res,next){
     		console.log("here");
     		for (var i = 0; i < categories.length; i++){
     			console.log("YO");
+    			console.log(categories[i]);
     			console.log(req.body[categories[i]]);
     			if (req.body[categories[i].name] != undefined){
     				
