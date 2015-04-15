@@ -141,7 +141,7 @@ exports.addMember = function(req, res, next) {
 exports.createNewGroup = function(req,res,next){
 
     console.log(JSON.stringify(req.body));
-    console.log(JSON.stringify(req.body.Video_Games))
+    console.log(JSON.stringify(req.body.Sports))
 	//var admins = [req.session.user];
 	//var cats = req.body.
 	//daos.addGroup(req.body.newGroupName, description, '', zipcode, admins, admins, [], )
