@@ -194,17 +194,17 @@ exports.createNewGroup = function(req,res,next){
     });
     
 
-    }
+    
 
 
-daos.getAllGroups(function(groups, err){
-		if (err){
-			res.json(404, { msg: 'Failed to get groups.' });
-		}
-		else{
-			res.json(groups);
-		}
-	});
+// daos.getAllGroups(function(groups, err){
+// 		if (err){
+// 			res.json(404, { msg: 'Failed to get groups.' });
+// 		}
+// 		else{
+// 			res.json(groups);
+// 		}
+// 	});
 
 
 
