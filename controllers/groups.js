@@ -182,7 +182,7 @@ exports.createNewGroup = function(req,res,next){
     	}
     	else {
     		console.log("here");
-    		for (var i = 0; i < categories.size(); i++){
+    		for (var i = 0; i < categories.length; i++){
     			console.log("YO");
     			console.log(req.body[categories[i]]);
     			if (req.body[categories[i].name] != undefined){
