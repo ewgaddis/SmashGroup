@@ -16,7 +16,7 @@ routers.get('/', function(req, res, next) {
     if(req.session.user)
         res.render('index');
     else
-        res.redirect('https://' + util.getHostName() + '/login');
+        res.redirect('/login');
 });
 
 // Secure routes
