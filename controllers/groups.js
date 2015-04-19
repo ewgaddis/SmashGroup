@@ -171,11 +171,11 @@ exports.addMember = function(req, res, next) {
 
 exports.createNewGroup = function(req,res,next){
 
-    var foundyou = daos.getGroup(req.body.newGroupName, function(group, err){
+    var foundyou = daos.getGroup(req.body.newGroupName, function (group, err){
     	if (!group){
     		var cats = [];
 
-		    daos.getCategories(function(categories, err){
+		    daos.getCategories(function (categories, err){
 		    	if (err){
 		    		res.json(404, { msg: 'Failed to get categories.' });
 		    	}
@@ -196,6 +196,13 @@ exports.createNewGroup = function(req,res,next){
 			var admins = [req.session.user];
 			//console.log(description);
 			daos.addGroup(req.body.newGroupName, req.body.description, req.body.schedule, req.body.zipcode, admins, admins, [], cats, []);
+    		daos.getGroup(req.body.newGroupName, function (group, err) {
+				if (group){
+					res.sendstatus(200);
+    				res.redirect('/#/group/' + group._id);
+				}
+    		});
+    		
     	}
     	else{
     		err = 'Group ' + req.body.newGroupName + 'already exists';
