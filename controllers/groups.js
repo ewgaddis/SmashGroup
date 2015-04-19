@@ -171,31 +171,40 @@ exports.addMember = function(req, res, next) {
 
 exports.createNewGroup = function(req,res,next){
 
-    // console.log(JSON.stringify(req.body));
-    // console.log(JSON.stringify(req.body.Sports));
-    // console.log(JSON.stringify(req.body['Video Games']));
-    var cats = [];
+    var foundyou = daos.getGroup(req.body.newGroupName, function(group, err){
+    	if (!group){
+    		var cats = [];
 
-    daos.getCategories(function(categories, err){
-    	if (err){
-    		res.json(404, { msg: 'Failed to get categories.' });
+		    daos.getCategories(function(categories, err){
+		    	if (err){
+		    		res.json(404, { msg: 'Failed to get categories.' });
+		    	}
+		    	else {
+		    		console.log("here");
+		    		for (var i = 0; i < categories.length; i++){
+		    			console.log("YO");
+		    			console.log(categories[i]);
+		    			console.log(req.body[categories[i].name]);
+		    			if (req.body[categories[i].name] != undefined){
+		    				
+		    				cats.push(categories[i]._id);
+		    			}
+		    		}
+		    	}
+		    });
+
+			var admins = [req.session.user];
+			//console.log(description);
+			daos.addGroup(req.body.newGroupName, req.body.description, req.body.schedule, req.body.zipcode, admins, admins, [], cats, []);
     	}
-    	else {
-    		console.log("here");
-    		for (var i = 0; i < categories.length; i++){
-    			console.log("YO");
-    			console.log(categories[i]);
-    			console.log(req.body[categories[i].name]);
-    			if (req.body[categories[i].name] != undefined){
-    				
-    				cats.push(categories[i]._id);
-    			}
-    		}
+    	else{
+    		err = 'Group ' + req.body.newGroupName + 'already exists';
+    	}
+
+    	if (err){
+    		req.session.regenerate(function(){
+    			res.send(404, err);
+    		});
     	}
     });
-
-	var admins = [req.session.user];
-	console.log(description);
-	//daos.addGroup(req.body.newGroupName, description, schedule, zipcode, admins, admins, [], )
-
 }

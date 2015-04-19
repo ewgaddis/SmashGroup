@@ -109,7 +109,7 @@ exports.getGroupsByZip = function(zip, callback)
 	});
 }
 //addGroup(group)
-exports.addGroup = function(gname, descrip, sched, zip,adms,membs, membRecs, categor, comms)
+exports.addGroup = function(gname, descrip, sched, zip, adms, membs, membRecs, categor, comms)
 {
 	var newGroup = new Group({
 		name: gname,
