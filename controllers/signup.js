@@ -5,7 +5,7 @@ var daos = require('./daos');
 
 exports.get = function(req, res) {
 	if(req.session.user) {
-		res.redirect('http://' + util.getHostName() + '/');
+		res.redirect('/');
 	}
 
 	res.render('signup');
