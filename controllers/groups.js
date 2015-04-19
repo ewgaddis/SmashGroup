@@ -199,7 +199,9 @@ exports.createNewGroup = function(req,res,next){
     		daos.getGroup(req.body.newGroupName, function (group, err) {
 				if (group){
 					res.sendstatus(200);
-    				res.redirect('/#/group/' + group._id);
+					var groupURI = '/#/group/' + group._id;
+					console.log(groupURI);
+    				res.redirect(groupURI);
 				}
     		});
     		
