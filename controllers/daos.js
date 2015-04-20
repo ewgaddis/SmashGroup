@@ -109,7 +109,7 @@ exports.getGroupsByZip = function(zip, callback)
 	});
 }
 //addGroup(group)
-exports.addGroup = function(gname, descrip, sched, zip, adms, membs, membRecs, categor, comms)
+exports.addGroup = function(gname, descrip, sched, zip, adms, membs, membRecs, categor, comms, callback)
 {
 	var newGroup = new Group({
 		name: gname,
@@ -125,8 +125,10 @@ exports.addGroup = function(gname, descrip, sched, zip, adms, membs, membRecs, c
 	});
 
 	newGroup.save(function(err, newGroup) {
-  	if (err) return console.error(err);
-  		console.dir(newGroup);
+  		if (err)
+  			return console.error(err);
+  			
+  		callback(err);
 	});
 	//does this work
 	//User.Insert

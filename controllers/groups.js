@@ -190,21 +190,26 @@ exports.createNewGroup = function(req,res,next){
 		    				cats.push(categories[i]._id);
 		    			}
 		    		}
+		    		
+		    		var admins = [req.session.user];
+					//console.log(description);
+					daos.addGroup(req.body.newGroupName, req.body.description, req.body.schedule,
+								  req.body.zipcode, admins, admins, [], cats, [], function(err) {
+						if(err) {
+							res.json(500, { msg: 'Failed to add new group.' });
+							return;
+						}
+						
+						daos.getGroup(req.body.newGroupName, function (group, err) {
+							if (group){
+								var groupURI = '/#/group/' + group._id;
+								console.log(groupURI);
+			    				res.redirect(groupURI);
+							}
+			    		});
+					});
 		    	}
 		    });
-
-			var admins = [req.session.user];
-			//console.log(description);
-			daos.addGroup(req.body.newGroupName, req.body.description, req.body.schedule, req.body.zipcode, admins, admins, [], cats, []);
-    		daos.getGroup(req.body.newGroupName, function (group, err) {
-				if (group){
-					res.sendstatus(200);
-					var groupURI = '/#/group/' + group._id;
-					console.log(groupURI);
-    				res.redirect(groupURI);
-				}
-    		});
-    		
     	}
     	else{
     		err = 'Group ' + req.body.newGroupName + 'already exists';
