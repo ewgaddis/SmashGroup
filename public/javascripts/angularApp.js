@@ -6,7 +6,8 @@ app.controller('userController', [
 	'$scope',
 	'$http',
 	'$window',
-	function($scope, $http, $window) {
+    '$state',
+	function($scope, $http, $window, $state) {
 		$http.get('/users/get').success(function(data, status, headers, config) {
 	    	$scope.user = data;
 	    	
@@ -34,6 +35,10 @@ app.controller('userController', [
 			
 			return false;
 		};
+        
+        $scope.search = function(search){
+            $state.go('searchGroups', { value: search.value});
+        };
 	}
 ]);
 
@@ -50,7 +55,6 @@ app.controller('signupController', [
 		});
         
         $scope.submitForm = function(){
-            console.log("bla");
             $scope.closeAlert();
             if(!angular.element('#button').hasClass('disabled'))
             {
@@ -97,9 +101,23 @@ app.controller('loginController', [
 app.controller('groupsController', [
 	'$scope',
 	'$http',
-	function($scope, $http) {
+    '$stateParams',
+	function($scope, $http, $stateParams) {
 		//get groups to display
+
         $http.get('/groups/getAll').success(function(data, status, headers, config){
+            $scope.groups = data;
+        });
+	}
+]);
+
+app.controller('searchGroupsController', [
+	'$scope',
+	'$http',
+    '$stateParams',
+	function($scope, $http, $stateParams) {
+		//get groups to display
+        $http.post('/groups/getByName', {name: $stateParams.value}).success(function(data, status, headers, config){
             $scope.groups = data;
         });
 	}
@@ -226,6 +244,10 @@ app.config([
         url: '/groups',
         templateUrl: '/templates/groups.ejs',
         controller: 'groupsController'
+      }).state('searchGroups', {
+        url: '/groups/{value}',
+        templateUrl: '/templates/groups.ejs',
+        controller: 'searchGroupsController'
       }).state('group', {
         url: '/group/{id}',
         templateUrl: '/templates/group.ejs',

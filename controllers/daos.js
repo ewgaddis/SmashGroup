@@ -68,6 +68,20 @@ exports.getGroup = function(groupName, callback)
 	});
 }
 
+exports.getGroupsByName = function(groupName, callback)
+{
+    var string = '.*' + groupName + '.*';
+	Group.find({name: new RegExp(string)}).exec(function(err,group)
+	{
+        if(group.length == 0)
+		{
+			callback(null, err);
+		} else {
+			callback(group, null);
+		}
+	});
+}
+
 function getGroupById(groupId, callback)
 {
 	Group.findOne({_id: groupId}).exec(function(err, group) {

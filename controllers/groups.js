@@ -49,11 +49,11 @@ exports.getById = function(req, res, next) {
 };
 
 exports.getByName = function(req, res, next) {
-	daos.getGroup(req.body.name, function(group, err) {
+	daos.getGroupsByName(req.body.name, function(groups, err) {
 		if(err) {
-			res.json(404, { msg: 'Failed to get group.' });
+			res.json(404, { msg: 'Failed to get groups.' });
 		} else {
-			res.json(group);
+			res.json(groups);
 		}
 	});
 };
