@@ -202,16 +202,15 @@ exports.createNewGroup = function(req,res,next){
 						
 						daos.getGroup(req.body.newGroupName, function (group, err) {
 							if (group){
-								daos.addMember(req.session.user, group._id, function(err) {
+								daos.addJoinedGroup(req.session.user, group._id, function(err) {
 									if(err) {
 										res.json(500, { msg: 'Failed to add member.' });
 									} else {
-										res.json({ msg: 'Success.' });
+										var groupURI = '/#/group/' + group._id;
+										console.log(groupURI);
+			    						res.redirect(groupURI);
 									}
 								});
-								var groupURI = '/#/group/' + group._id;
-								console.log(groupURI);
-			    				res.redirect(groupURI);
 							}
 			    		});
 					});

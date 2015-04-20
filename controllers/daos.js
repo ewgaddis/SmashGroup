@@ -188,6 +188,33 @@ exports.addRequest = function(userId, groupId, callback)
 	});	
 }
 
+function addJoinedGroup(userId, groupId, callback)
+{
+	getUserById(userId, function(user, err) {
+		if(err) {
+			callback(err);
+			return;
+		}
+		
+		user.groups.push(groupId);
+		
+		User.update({ _id: userId }, {
+			$set: {
+				groups: user.groups
+			}
+		}).exec(function(err, results) {
+			if(err) {
+				callback(err);
+				return;
+			}
+	
+			callback(null);
+		});
+	});
+}
+
+exports.addJoinedGroup = addJoinedGroup;
+
 exports.addMember = function(userId, groupId, callback)
 {
 	Group.findOne({_id:groupId}).exec(function(err,group)
@@ -213,27 +240,7 @@ exports.addMember = function(userId, groupId, callback)
 					return;
 				}
 				
-				getUserById(userId, function(user, err) {
-					if(err) {
-						callback(err);
-						return;
-					}
-					
-					user.groups.push(groupId);
-					
-					User.update({ _id: userId }, {
-						$set: {
-							groups: user.groups
-						}
-					}).exec(function(err, results) {
-						if(err) {
-							callback(err);
-							return;
-						}
-			
-						callback(null);
-					});
-				});
+				addJoinedGroup(userId, groupId, callback);
 			});
 		}
 		
